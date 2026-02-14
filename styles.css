@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fff0f5;
+  overflow: hidden; /* Pinipigilan nito ang scroll bar */
+  position: relative;
+}
+
+.wrapper {
+  width: 420px;
+  background: white;
+  color: #d87093;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+  position: relative;
+  z-index: 10; /* Mas mataas para nasa ibabaw ng stickers ang login box */
+}
+
+.wrapper h1 {
+  font-size: 36px;
+  text-align: center;
+  color: #ff69b4;
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 2px solid #ffb6c1;
+  outline: none;
+  border-radius: 40px;
+  padding: 20px 45px 20px 20px;
+  color: #d87093;
+}
+
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #ff69b4;
+}
+
+.forgot-only {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.forgot-only a {
+  color: #d87093;
+  text-decoration: none;
+  font-size: 14.5px;
+}
+
+.btn {
+  width: 100%;
+  height: 45px;
+  background: #ffb6c1;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #ff69b4;
+}
+
+.back-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.back-home a {
+  text-decoration: none;
+  color: #ff69b4;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ============================================================
+   STICKERS CUSTOMIZATION (Dito mo babaguhin ang size at position)
+   ============================================================ */
+
+.sticker {
+  position: absolute;
+  pointer-events: none; /* Hindi nito mahaharangan ang pag-click sa buttons */
+  z-index: 1;          /* Gawing -1 kung gusto mo na nasa likod talaga ng login box */
+  animation: floatEffect 3s ease-in-out infinite;
+}
+
+/* 1. love pink STARS (Top Right) */
+.sparkle-stars {
+  /* POSITION */
+  top: 5%;             /* NOTE: Lakihan ang % para bumaba, liitan para tumaas */
+  right: 5%;           /* NOTE: Lakihan ang % para lumapit sa gitna */
+  
+  /* SIZE */
+  width: 400px;        /* NOTE: Palitan ang number para lumaki/maliit (e.g., 200px) */
+}
+
+/* 2. BEAR HUG (Bottom Left) */
+.bear-hug {
+  /* POSITION */
+  bottom: 2%;          /* NOTE: Lakihan ang % para umakyat, liitan para bumaba */
+  left: 2%;            /* NOTE: Lakihan ang % para lumapit sa gitna */
+  
+  /* SIZE */
+  width: 600px;        /* NOTE: Baguhin ang number para lumaki/maliit */
+}
+
+/* Floating Animation */
+@keyframes floatEffect {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Mobile Settings para sa phone */
+@media (max-width: 768px) {
+  .sparkle-stars { width: 100px; }
+  .bear-hug { width: 150px; }
+}

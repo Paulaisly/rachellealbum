@@ -1,0 +1,529 @@
+/* THEME: Sweet & Aesthetic Photo Album 
+   UPGRADES: Smooth Scroll, Momentum Glide, Polaroid Album Cards, Full Image View
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #fff0f5; /* Light Pink */
+  color: #d87093;
+  overflow-x: hidden;
+}
+
+/* === HEADER SECTION === */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: white;
+  box-shadow: 0 2px 10px rgba(255, 182, 193, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.dashboard-header .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff69b4;
+}
+
+.dashboard-header nav a {
+  text-decoration: none;
+  color: #ff69b4;
+  font-weight: 600;
+  border: 2px solid #ffb6c1;
+  padding: 8px 20px;
+  border-radius: 25px;
+  transition: 0.3s ease;
+}
+
+.dashboard-header nav a:hover {
+  background: #ffb6c1;
+  color: white;
+}
+
+/* === MAIN CONTAINER === */
+.album-container {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.welcome-text {
+  padding: 0 8%;
+  margin-bottom: 20px;
+}
+
+.welcome-text h1 {
+  font-size: clamp(28px, 5vw, 45px);
+  color: #ff69b4;
+  text-shadow: 2px 2px 5px rgba(255, 182, 193, 0.3);
+  margin-bottom: 10px;
+}
+
+.welcome-text p {
+  font-size: 18px;
+  color: #db7093;
+}
+
+/* === DASHBOARD: HORIZONTAL SCROLL === */
+.scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 40px 8%;
+  cursor: grab;
+  user-select: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.photo-grid-horizontal {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  padding-right: 8%;
+}
+
+/* DASHBOARD PHOTO CARD */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.photo-card {
+  background: white;
+  padding: 12px;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+  width: 320px;
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover; /* Pantay-pantay sa dashboard */
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+.photo-card:hover {
+  transform: translateY(-15px) rotate(1deg);
+  box-shadow: 0 20px 40px rgba(255, 105, 180, 0.5);
+}
+
+.caption {
+  padding: 15px 5px 5px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #d87093;
+}
+
+/* === INNER ALBUM: POLAROID GRID (NO CUT) === */
+.inner-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 35px;
+  padding: 40px 8%;
+}
+
+.photo-item {
+  background: white;
+  width: 350px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-item:hover {
+  transform: translateY(-10px) rotate(-1deg);
+}
+
+/* Box para sa BUONG picture (No Cut) */
+.img-box {
+  width: 100%;
+  height: 350px;
+  background: #fdfdfd; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-in;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.img-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Eto ang sikreto para hindi maputol ang picture */
+  transition: transform 0.5s ease;
+}
+
+/* Photo Details (Date & Message) */
+.photo-info {
+  padding: 15px 5px;
+  text-align: left;
+}
+
+.photo-info .date {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ff69b4;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.photo-info .message {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  font-style: italic;
+  border-top: 1px dashed #ffb6c1;
+  padding-top: 8px;
+}
+
+/* === LIGHTBOX (FULLSCREEN VIEW) === */
+.lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 4px solid white;
+  border-radius: 5px;
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.close-lightbox {
+  position: absolute;
+  top: 25px; right: 35px;
+  color: white;
+  font-size: 45px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* === DECORATION === */
+.dash-sticker {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 130px;
+  pointer-events: none;
+  z-index: 100;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* === MOBILE OPTIMIZATION === */
+@media (max-width: 768px) {
+  .photo-card { width: 270px; }
+  .photo-card img { height: 320px; }
+  .photo-item { width: 100%; max-width: 350px; }
+  .img-box { height: 300px; }
+  .dash-sticker { width: 90px; }
+}
+
+/* === 🆕 DAGDAG NA UPDATE: FULL-BLEED DESIGN (WALANG BINAGO SA TAAS) === */
+
+/* Ginawang full width ang card at tinanggal ang padding para dumikit ang pic */
+.photo-item {
+  width: 380px;      /* Mas malapad gaya ng screenshot */
+  padding: 0;        /* Inalis ang padding para dumikit ang image sa gilid */
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* In-adjust ang box para sumakto ang picture hanggang sa kanto */
+.img-box {
+  height: 400px;     /* Taas ng picture sa loob ng card */
+  border-radius: 0;  /* Inalis ang radius para dikit sa taas */
+  background: white;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ito ang magpapatanggal sa puting space sa gilid */
+  max-width: none;
+  max-height: none;
+}
+
+/* Inayos ang spacing ng text area sa ilalim para maging malinis */
+.photo-info {
+  padding: 25px 20px;
+  background: white;
+}
+
+.photo-info .date {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.photo-info .message {
+  font-size: 15px;
+  color: #555;
+  font-style: normal; /* Mas malinis tignan base sa sample mo */
+  padding-top: 15px;
+  border-top: 1px dashed #ffd1dc;
+}
+
+/* Siguraduhin na sa View mode (Lightbox) ay hindi naka-crop ang pic */
+.lightbox img {
+  object-fit: contain !important;
+}
+
+/* Mobile fix para laging center ang cards */
+@media (max-width: 768px) {
+  .photo-item {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+
+/* === 🆕 COLLAGE SIZE & LIGHTBOX FIX (LANDSCAPE 4x2) === */
+
+/* Ginawang 1100px para maging landscape ang look */
+.photo-item.large-item {
+  width: 2100px !important; 
+  max-width: 95%;
+  flex-direction: column !important;
+  background: white;
+  padding: 15px !important;
+  border-radius: 20px;
+}
+
+/* 4 columns x 2 rows = 8 pictures total */
+.collage-8 {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important; 
+  grid-template-rows: repeat(2, 220px) !important; 
+  gap: 12px;
+  padding: 5px;
+  height: auto !important;
+  background: white;
+}
+
+.collage-8 img {
+  width: 100%;
+  height: 220px !important; /* Fixed height para pantay lahat ng kanto */
+  object-fit: cover !important;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.collage-8 img:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Nilinis ang info area sa ilalim ng landscape card */
+.photo-item.large-item .photo-info {
+  margin-top: 15px;
+  padding: 15px 10px;
+  border-top: 2px dashed #ffd1dc;
+  text-align: left;
+}
+
+/* Mobile responsive - babalik sa 2 columns pag maliit ang screen */
+@media (max-width: 1100px) {
+  .photo-item.large-item {
+    width: 95% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .collage-8 {
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columns lang sa mobile */
+    grid-template-rows: auto !important;
+  }
+  .collage-8 img {
+    height: 180px !important;
+  }
+}
+
+/* === 📹 SEPARATE VIDEO CARD STYLES === */
+
+.video-item {
+    margin-top: 40px; /* Space sa pagitan ng photo card at video card */
+}
+
+.video-box {
+    width: 100%;
+    height: 450px; /* Mas malaking view para sa video */
+    background: #000;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Para makita ang buong video frame */
+}
+
+/* Landscape adjustment para sa Video Info */
+.video-item .photo-info {
+    border-top: 2px dashed #ffd1dc;
+    margin-top: 15px;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .video-box {
+        height: 250px;
+    }
+}
+
+/*//////////////////////////////////////
+
+/* === 📹 VIDEO GRID: FULL FRAME (2 COLUMNS PANTAY) === */
+
+.video-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* Dalawa sa isang row */
+    gap: 30px;
+    width: 1200px;
+    max-width: 95%;
+    margin: 20px auto;
+}
+
+.video-card {
+    background: white;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.video-box-mini {
+    width: 100%;
+    height: 350px; /* Taas ng lalagyan */
+    background: #000; /* Itim na background para sa letterbox effect */
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-box-mini video {
+    width: 100%;
+    height: 100%;
+    /* ETO ANG PINAKA-IMPORTANTE: */
+    object-fit: contain !important; /* Hindi na siya maku-cut, makikita ang BUONG video */
+}
+
+.video-info {
+    padding: 20px 10px;
+    text-align: left;
+    border-top: 1px dashed #ffd1dc;
+    margin-top: 15px;
+}
+
+.video-info .message {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    font-style: italic;
+    padding-top: 10px;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .video-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .video-box-mini {
+        height: 250px;
+    }
+}
+
+
+/* === 🆕 UPDATE: STORY BUTTON IN HEADER === */
+
+.dashboard-header nav {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space sa pagitan ng Story at Logout */
+}
+
+.story-btn {
+  background: #ff69b4 !important; /* Solid Pink */
+  color: white !important;
+  border: none !important;
+  padding: 8px 22px !important;
+  border-radius: 25px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
+}
+
+.story-btn i {
+  font-size: 18px;
+}
+
+.story-btn:hover {
+  background: #ff1493 !important; /* Darker Pink */
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255, 105, 180, 0.5);
+}
+
+/* Para hindi ma-affect ang hover ng default nav links */
+.dashboard-header nav a:not(.story-btn):hover {
+  background: #ffb6c1;
+  color: white;
+}

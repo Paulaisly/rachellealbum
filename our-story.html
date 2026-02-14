@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | Timeline</title>
+    <link rel="stylesheet" href="dashboard-style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Custom Styles para sa Story Page */
+        body {
+            background-color: #fff5f7;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .story-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* === CENTERED HEADER SECTION === */
+        .story-header-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 80px;
+            padding-top: 20px;
+        }
+
+        .welcome-text.typewriter h1 {
+            font-size: clamp(24px, 6vw, 45px);
+            color: #ff69b4;
+            margin: 0 auto 15px auto;
+            width: fit-content;
+            overflow: hidden;
+            border-right: .15em solid #ff69b4;
+            white-space: nowrap;
+            letter-spacing: .10em;
+            animation:
+                typing 3.5s steps(30, end),
+                blink-caret .75s step-end infinite;
+        }
+
+        .welcome-text p {
+            font-size: 18px;
+            color: #db7093;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 3.5s;
+        }
+
+        /* === FIXED TIMELINE (Tuluy-tuloy na Line) === */
+        .timeline {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 0;
+        }
+
+        /* Ang line sa gitna - Siguradong tuluy-tuloy */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ffd1dc;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .story-card {
+            width: 44%;
+            margin-bottom: 50px;
+            position: relative;
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            z-index: 2;
+            /* Para nasa ibabaw ng line */
+        }
+
+        .story-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Salit-salit na pwesto gamit ang Flexbox */
+        .story-card.left {
+            align-self: flex-start;
+            text-align: right;
+        }
+
+        .story-card.right {
+            align-self: flex-end;
+            text-align: left;
+        }
+
+        /* HEART ICON - Saktong nakatapat sa line */
+        .story-card::after {
+            content: '❤️';
+            position: absolute;
+            top: 25px;
+            background: white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+            z-index: 3;
+        }
+
+        .story-card.left::after {
+            right: -15.5%;
+            /* Desktop position */
+        }
+
+        .story-card.right::after {
+            left: -15.5%;
+            /* Desktop position */
+        }
+
+        /* Adjustment para sa iba't ibang screen size */
+        @media (min-width: 1024px) {
+            .story-card.left::after {
+                right: -15.2%;
+            }
+
+            .story-card.right::after {
+                left: -15.2%;
+            }
+        }
+
+        .story-card img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .story-date {
+            display: inline-block;
+            background: #ff69b4;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .story-card h3 {
+            color: #ff1493;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .story-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .chapter-divider {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 60px 0;
+            font-size: 26px;
+            color: #ff1493;
+            font-weight: bold;
+            background: #fff5f7;
+            /* Tinatakpan ang line sa likod ng text */
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #ff69b4;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+                transform: none;
+            }
+
+            .story-card {
+                width: 80%;
+                align-self: flex-end;
+                text-align: left !important;
+            }
+
+            .story-card.left::after,
+            .story-card.right::after {
+                left: -38px;
+                right: auto;
+            }
+
+            .chapter-divider {
+                margin-left: 40px;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+        <div class="logo">🌸 Our Storybook</div>
+        <nav><a href="dashboard.html">Back to Dashboard</a></nav>
+    </header>
+
+    <main class="story-container">
+        <div class="story-header-wrapper">
+            <div class="welcome-text typewriter">
+                <h1>Our Journey Together ✨</h1>
+                <p>Every picture tells a story, and you're my favorite one.</p>
+            </div>
+        </div>
+
+        <div class="timeline">
+
+            <div class="chapter-divider">Story time 🌸</div>
+
+            <div class="story-card left">
+                <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086043/firstpic2_rujimo.jpg"
+                    alt="Memory">
+                <div class="story-date">June 29, 2024</div>
+                <h3>The First Chat</h3>
+                <p> nagsimula ang lahat nung nag-scroll ako sa FB Dating. Nakita ko yung pic mo tapos makita ko sa
+                    details mo na taga-NU ka kaya hindi ako nagdalawang isip na i-heart ka agad. After nung heartback
+                    mo, chinat na kita agad at dun na nagsimula yung walang katapusang kwentuhan, mahabang call, at
+                    paglalaro ng Roblox. Masaya ako palagi kapag ikaw ang kalaro. sa totoo lang naglalaro lang ng roblox
+                    dahil sayo</p>
+            </div>
+
+            <div class="story-card right">
+                <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771085837/photoM15_umxo1r.jpg" alt="Memory">
+                <div class="story-date">July 08, 2024</div>
+                <h3>Our First Meet</h3>
+                <p>first meet natin nag kita tayo sa watsons nakita kita agad namukha ko agad na ikaw yun kaya nasa
+                    likod lang ako na Sinusundan lang kita hanggang makita moko medyo nahihiya ako kaya naging madaldal
+                    nalang ako para wala nahiya ko sa una lang ako nahihiya pero mawawala naman agad kaso saglit lang
+                    tayo nag kita kase uuwi ka hinahanap ka magulang mo</p>
+            </div>
+
+            <div class="chapter-divider">Heart moments ❤️</div>
+
+            <div class="story-card left">
+                <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771104531/Screenshot_2026-02-15_052826_zxy55r.png"
+                    alt="Memory">
+                <div class="story-date">August 08, 2024</div>
+                <h3>Dahil wrong chat nag simula tayo</h3>
+                <p>nagulat ako na araw yun nag chat ka ganon sakin na "ingat mahal" hindi ako nag reply agad baka wrong
+                    chat ka pero nasa isip ko na oras na yun baka may kausap ka iba hindi lang ako kausap mo after na
+                    yun nakita ko delete chat mo kaya nag reply ako agad nakita ko yun explain mo naman kung kanino
+                    dapat chat mo yun nawala naman agad nasa isip may kausap ka iba after dun nag simula mang asar sayo
+                    na ingat mahal hindi ko alam sarili ko yun sobra lakas ng trip ko sato kapag inaasar kita pero hindi
+                    ko expert na may mabubuo feels tayo isa't isa dahil sinasabayan moko mang-asar</p>
+            </div>
+
+            
+
+            <div class="story-card right">
+                <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086045/firstpic7_ma8wq1.jpg" alt="Memory">
+                <div class="story-date">August 20, 2024</div>
+                <h3>2nd Meet</h3>
+                <p></p>
+            </div>
+
+            
+
+        </div>
+    </main>
+
+    <script>
+        const cards = document.querySelectorAll('.story-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
+
+</html>

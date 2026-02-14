@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album | Memory</title>
+    <link rel="stylesheet" href="dashboard-style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+
+    <header class="dashboard-header">
+        <div class="logo">🌸 Our Album</div>
+        <nav><a href="dashboard.html">Back to Dashboard</a></nav>
+    </header>
+
+    <main class="album-container">
+        <div class="welcome-text">
+            <h1>Our First Date 💖</h1>
+            <p>Every moment with you is special.</p>
+        </div>
+
+        <div class="inner-gallery">
+
+            <div class="photo-item large-item">
+                <div class="img-box collage-8">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086042/firstpic1_aa4jop.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086043/firstpic2_rujimo.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086044/firstpic3_rppcsm.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086043/firstpic4_rx5k6q.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086044/firstpic5_mfm8ps.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086044/firstpic6_vcmr1i.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086045/firstpic7_ma8wq1.jpg" onclick="viewImage(this)" alt="Memory">
+                    <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086045/firstpic8_ljup08.jpg" onclick="viewImage(this)" alt="Memory">
+                </div>
+                <div class="photo-info">
+                    <span class="date">September 20, 2024</span>
+                    <p class="message">
+                        That was our first date. Back then, we werent even together yet we had just met and were still
+                        getting to know each other. But its a day I will never forget. I still remember the first time
+                        we played billiards. Every time I think about it, it brings me back to that moment. You were
+                        wearing your blue Ateneo T-shirt, and for some reason, that detail stayed with me. Maybe because
+                        that was the day everything felt new, simple, and real. I was genuinely happy that day happy to
+                        have met you, happy to be there with you. It may have just been a simple first date, but for me,
+                        it became one of the most beautiful memories Ill always carry in my heart.
+                    </p>
+                </div>
+            </div>
+
+            <div class="photo-item large-item video-card-container">
+                <div class="video-box">
+                    <video controls>
+                        <source src="https://res.cloudinary.com/db6swebjw/video/upload/v1771086051/firstplay_e5cgl0.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="photo-info">
+                    <span class="date"><i class='bx bx-video'></i> Video Memory</span>
+                    <p class="message">
+                        This clip captured the vibes of that day. Seeing this always makes me smile.
+                        I'm so glad we have this memory recorded. 🎥✨
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="">
+    </div>
+
+    <script>
+        function viewImage(imgElement) {
+            const src = imgElement.src;
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightbox = document.getElementById('lightbox');
+
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>

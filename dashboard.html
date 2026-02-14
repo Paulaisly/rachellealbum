@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Memories | Smooth Photo Album</title>
+  <link rel="stylesheet" href="dashboard-style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+  <header class="dashboard-header">
+    <div class="logo">🌸 Our Album</div>
+    <nav>
+      <a href="our-story.html" class="story-btn">
+        <i class='bx bxs-book-heart'></i> Our Story
+      </a>
+      <a href="index.html">Logout</a>
+    </nav>
+  </header>
+
+  <main class="album-container">
+    <div class="welcome-text">
+      <h1>Our Sweetest Moments ✨</h1>
+      <p>Click a memory to open its album | Drag to explore</p>
+    </div>
+
+    <div class="scroll-wrapper" id="scrollContainer">
+      <div class="photo-grid-horizontal">
+        
+        <a href="album-first-date.html" class="card-link">
+          <div class="photo-card">
+            <img src="firstpic.jpg" alt="Memory 1">
+            <div class="caption">Our First Date 💖</div>
+          </div>
+        </a>
+        
+        <a href="album-laughing.html" class="card-link">
+          <div class="photo-card">
+            <img src="rachelle.png" alt="Memory 2">
+            <div class="caption">Laughing Together 😂</div>
+          </div>
+        </a>
+
+        <a href="album-sweet.html" class="card-link">
+          <div class="photo-card">
+            <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771085822/sweet9_mls1pu.jpg" alt="Memory 3">
+            <div class="caption">Sweet moments 💖</div>
+          </div>
+        </a>
+
+        <a href="album-photobooth.html" class="card-link">
+          <div class="photo-card">
+            <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771085838/photoM20_dqos9t.jpg" alt="Memory 4">
+            <div class="caption">photobooth moments 💖 </div>
+          </div>
+        </a>
+
+        <a href="album-cute.html" class="card-link">
+          <div class="photo-card">
+            <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771085900/cute27_mxxkya.jpg" alt="Memory 5">
+            <div class="caption">Cute moments 🌸</div>
+          </div>
+        </a>
+
+        <a href="album-favorite.html" class="card-link">
+          <div class="photo-card">
+            <img src="https://res.cloudinary.com/db6swebjw/image/upload/v1771086016/rachelle46_coabio.jpg" alt="Memory 6">
+            <div class="caption">My Favorite Person 🌸</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </main>
+
+  <img src="https://media3.giphy.com/media/Ag9x41SNcPYA44Kjwb/giphy.gif" class="dash-sticker">
+
+  <script>
+    const slider = document.getElementById('scrollContainer');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let velocity = 0;
+    let lastX = 0;
+    let animationId;
+
+    slider.addEventListener('mousedown', (e) => {
+      isDown = true;
+      cancelAnimationFrame(animationId); 
+      slider.style.cursor = 'grabbing';
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeft = slider.scrollLeft;
+    });
+
+    const stopDragging = () => {
+      if (!isDown) return;
+      isDown = false;
+      slider.style.cursor = 'grab';
+
+      const glide = () => {
+        if (Math.abs(velocity) < 0.2) return; 
+        slider.scrollLeft -= velocity;
+        velocity *= 0.95; 
+        animationId = requestAnimationFrame(glide);
+      };
+      glide();
+    };
+
+    slider.addEventListener('mouseleave', stopDragging);
+    slider.addEventListener('mouseup', stopDragging);
+
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      slider.scrollLeft = scrollLeft - walk;
+      velocity = x - lastX;
+      lastX = x;
+    });
+
+    slider.addEventListener('touchstart', () => {
+      cancelAnimationFrame(animationId);
+      velocity = 0;
+    });
+  </script>
+
+</body>
+</html>
